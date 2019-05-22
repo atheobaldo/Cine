@@ -183,7 +183,7 @@
             BorderRadius="3"
             HeightRequest="40"
             Padding="8"
-            Margin="0,20,0,60"/>
+            Margin="0,20,0,20"/>
         
     </Grid>
     
