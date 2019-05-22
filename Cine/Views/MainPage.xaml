@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cine.Views.MainPage"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:template="clr-namespace:Cine.Templates;assembly=Cine"
+             xmlns:extended="clr-namespace:Xamarin.Forms.Extended;assembly=Xamarin.Forms.Extended.InfiniteScrolling"
+             Title="{Binding Title}"
+             BackgroundColor="#fafafa">
+        
+    <ListView
+        RowHeight="140"
+        ItemsSource="{Binding Movies, Mode=TwoWay}"
+        IsPullToRefreshEnabled="true"
+        IsRefreshing = "{Binding IsRefreshing, Path=TwoWay}"
+        BackgroundColor="#e9e9e9">
+        
+        <ListView.Behaviors>
+            <behaviors:EventToCommandBehavior
+                Command="{Binding MovieItemSelectedCommand}"
+                EventArgsParameterPath="Item"
+                EventName="ItemTapped" />
+            <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+        </ListView.Behaviors>
+        
+        <ListView.ItemTemplate>
+            <DataTemplate >
+                <ViewCell >
+                    <template:CardMovies 
+                        Margin="2,3"
+                        Padding="2,0"/>
+                </ViewCell>
+            </DataTemplate>
+            
+        </ListView.ItemTemplate>
+        
+    </ListView>
+
+</ContentPage>
