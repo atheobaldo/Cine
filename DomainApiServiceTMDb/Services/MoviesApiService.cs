@@ -32,5 +32,27 @@ namespace DomainApiServiceTMDb.Services
 
         }
 
+        public async Task<MovieResults> SearchMovies(int page, string query)
+        {
+            moviesRoutes = returnConfigurationService();
+
+            try
+            {
+                var result = await moviesRoutes.SearchMovies(page, query, Constantes.Apikey);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                var result = new MovieResults();
+                result.statusCode = 500;
+                result.statusMessage = $"Aconteceu um erro com a sua solicitação: {ex.Message}";
+                return result;
+            }
+
+
+        }
+
     }
 }

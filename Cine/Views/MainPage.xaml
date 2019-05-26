@@ -8,32 +8,45 @@
              Title="{Binding Title}"
              BackgroundColor="#fafafa">
         
-    <ListView
-        RowHeight="140"
-        ItemsSource="{Binding Movies, Mode=TwoWay}"
-        IsPullToRefreshEnabled="true"
-        IsRefreshing = "{Binding IsRefreshing, Path=TwoWay}"
-        BackgroundColor="#e9e9e9">
-        
-        <ListView.Behaviors>
-            <behaviors:EventToCommandBehavior
-                Command="{Binding MovieItemSelectedCommand}"
-                EventArgsParameterPath="Item"
-                EventName="ItemTapped" />
-            <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
-        </ListView.Behaviors>
-        
-        <ListView.ItemTemplate>
-            <DataTemplate >
-                <ViewCell >
-                    <template:CardMovies 
-                        Margin="2,3"
-                        Padding="2,0"/>
-                </ViewCell>
-            </DataTemplate>
+    <StackLayout>
+        <SearchBar IsVisible="true"
+           Placeholder="Search movies.." 
+           Text="{Binding SearchText}"
+           SearchCommand="{Binding SearchCommand}">
+           <SearchBar.Behaviors>
+              <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding TextChangedCommand}"/>
+            </SearchBar.Behaviors>
+
+        </SearchBar>
+    
+    
+        <ListView
+            RowHeight="140"
+            ItemsSource="{Binding Movies, Mode=TwoWay}"
+            IsPullToRefreshEnabled="true"
+            BackgroundColor="#e9e9e9">
             
-        </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior
+                    Command="{Binding MovieItemSelectedCommand}"
+                    EventArgsParameterPath="Item"
+                    EventName="ItemTapped" />
+                <extended:InfiniteScrollBehavior IsLoadingMore="{Binding IsBusy}" />
+            </ListView.Behaviors>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                    <ViewCell >
+                        <template:CardMovies 
+                            Margin="2,3"
+                            Padding="2,0"/>
+                    </ViewCell>
+                </DataTemplate>
+                
+            </ListView.ItemTemplate>
+            
+        </ListView>
         
-    </ListView>
+    </StackLayout>
 
 </ContentPage>

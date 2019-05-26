@@ -23,12 +23,6 @@ namespace Cine.ViewModels
             set { SetProperty(ref _moviesItens, value); }
         }
 
-        private bool _isRefreshing;
-        public bool IsRefreshing
-        { 
-            get { return _isRefreshing; }
-            set { SetProperty(ref _isRefreshing, value); }
-        }
 
         public GenresResults _genres;
         public GenresResults Genres
@@ -46,16 +40,21 @@ namespace Cine.ViewModels
 
         private int pageCount = 1;
 
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set { SetProperty(ref _searchText, value); }
+        }
+
         private readonly IMoviesApiService _moviesApiService;
         private readonly IGenresApiService _genresApiService;
         private readonly IPopupNavigation _popupNavigation;
 
 
-        public ICommand MovieItemSelectedCommand
-        {
-            get;
-            set;
-        }
+        public ICommand MovieItemSelectedCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
+        public ICommand TextChangedCommand { get; set; }
 
         public MainPageViewModel(
                 INavigationService navigationService,
@@ -70,11 +69,27 @@ namespace Cine.ViewModels
             _popupNavigation = popupNavigation;
 
             MovieItemSelectedCommand = new DelegateCommand<Movie>(ShowDetailedMovie);
+            SearchCommand = new DelegateCommand(DoSearchCommandAsync);
+            TextChangedCommand = new DelegateCommand(OnTextChanged);
+
             Title = "Cine";
             MoviesItens = new ObservableCollection<Movie>();
 
             LoadDataMovies();
             LoadDataGenres();
+        }
+
+        private void DoSearchCommandAsync()
+        {
+            Movies.Clear();
+            pageCount = 0;
+            Movies.LoadMoreAsync();
+        }
+
+        private void OnTextChanged()
+        {
+            if (SearchText == string.Empty)
+                DoSearchCommandAsync();
         }
 
         private async void ShowDetailedMovie(Movie movie)
@@ -102,31 +117,34 @@ namespace Cine.ViewModels
 
         private async Task LoadDataMovies()
         {
-            IsRefreshing = true;
-
             Movies = new InfiniteScrollCollection<Movie>
             {
                 OnLoadMore = async () =>
                 {
                     IsBusy = true;
                     pageCount += 1;
-                    var items = await _moviesApiService.GetUpcommingMovies(pageCount);
+                    var items = await GetMovies();
                     IsBusy = false;
                     return items.results;
-                },
-                OnCanLoadMore = () => Movies.Count < 220
+                }
             };
 
             await DownloadDataAsync();
-
-            IsRefreshing = false;
 
         }
 
         private async Task DownloadDataAsync()
         { 
-            var movies = await _moviesApiService.GetUpcommingMovies(pageCount);
+            var movies = await GetMovies();
             if (movies.results != null) Movies.AddRange(movies.results);
+        }
+
+        private async Task<MovieResults> GetMovies()
+        {
+            if(SearchText == string.Empty)
+                return await _moviesApiService.GetUpcommingMovies(pageCount);
+
+            return await _moviesApiService.SearchMovies(pageCount, SearchText);
         }
 
     }

@@ -9,7 +9,7 @@
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value) return "Yes";
+            if(value is bool booleano) return booleano ? "Yes" : "No";
 
             return "No";
         }
