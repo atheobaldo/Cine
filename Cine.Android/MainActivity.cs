@@ -30,6 +30,7 @@ namespace Cine.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
     }
 }
 

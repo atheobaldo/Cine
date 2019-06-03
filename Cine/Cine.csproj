@@ -11,14 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
-    <PackageReference Include="Prism.Core" Version="7.1.0.431" />
-    <PackageReference Include="Prism.DryIoc.Forms" Version="7.1.0.431" />
-    <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling" Version="1.0.0-preview2" />
-    <PackageReference Include="PluginsPopup" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Templates\" />
     <Folder Include="Converters\" />
     <Folder Include="ViewModels\" />
@@ -26,5 +18,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainApiServiceTMDb\DomainApiServiceTMDb.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
+    <PackageReference Include="Prism.Core" Version="7.1.0.431" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.1.0.431" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling" Version="1.0.0-preview2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
   </ItemGroup>
 </Project>

@@ -10,15 +10,21 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     Padding="20">
     
-    <!--
-    
     <pages:PopupPage.Resources>
         <ResourceDictionary>
-           <converters:BooleanToYesNoConverter x:key="BooleanToYesNoConverter" />
+         <!--  <converters:BooleanToYesNoConverter x:key="BooleanToYesNoConverter" /> -->
+            <Style TargetType="Label" x:Key="LabelTitulo" >
+                <Setter Property="TextColor" Value="#1565C0"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            
+            <Style TargetType="Label" x:Key="LabelValor" >
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
         </ResourceDictionary>
-    </pages:PopupPage.Resources>
-    
-    -->
+    </pages:PopupPage.Resources> 
     
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
@@ -32,159 +38,144 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-
-    <Grid RowSpacing="3"
-        BackgroundColor="White">
     
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <AbsoluteLayout>
+    
+        <Grid RowSpacing="3"
+              BackgroundColor="White"
+              AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All">
 
-        <StackLayout
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Orientation="Vertical">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <Image
-                x:Name="Poster"
-                Source="{Binding Movies.PosterPath}" 
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                Margin="0,15,0,5"
-                WidthRequest="200"
-                HeightRequest="240"/>
-                
-            <Label
-                FontSize="18"
-                BackgroundColor="Transparent"
-                FontAttributes="Bold"
-                Text="{Binding Movies.Title}"
-                HorizontalTextAlignment="Center"
-                HorizontalOptions="CenterAndExpand"
-                TextColor="Black" />
-        </StackLayout>
-        
-        <ScrollView
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            
-            Margin="10,8">
-            <StackLayout 
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
                 Orientation="Vertical">
+
+                <Image
+                    x:Name="Poster"
+                    Source="{Binding Movies.PosterPath}" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Margin="0,15,0,5"
+                    WidthRequest="200"
+                    HeightRequest="240"/>
                     
                 <Label
-                    FontSize="14"
-                    LineBreakMode="WordWrap"
-                    BackgroundColor="Transparent" 
-                    Text="{Binding Movies.Overview}"
-                    TextColor="Black"
+                    FontSize="18"
+                    BackgroundColor="Transparent"
+                    FontAttributes="Bold"
+                    Text="{Binding Movies.Title}"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="Black" />
+            </StackLayout>
+            
+            <ScrollView
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                
+                Margin="10,8">
+                <StackLayout 
+                    Orientation="Vertical">
+                        
+                    <Label
+                        Style="{StaticResource LabelValor}"
+                        LineBreakMode="WordWrap"
+                        BackgroundColor="Transparent" 
+                        Text="{Binding Movies.Overview}"
+                        VerticalOptions="StartAndExpand"/>
+                    
+                </StackLayout>
+          
+            </ScrollView>  
+            
+           <StackLayout
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Orientation="Vertical"
+                Margin="10,8">
+                    
+               <Label
+                    Style="{StaticResource LabelTitulo}"
+                    Text="Genres:"
+                    VerticalOptions="StartAndExpand"/>
+                
+                <Label
+                    Style="{StaticResource LabelValor}"
+                    Text="{Binding Genres}"
+                    VerticalOptions="StartAndExpand"/>            
+                
+            </StackLayout>
+           
+            <StackLayout
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Orientation="Horizontal">
+            
+                <Label
+                    Style="{StaticResource LabelTitulo}"
+                    Margin="10,0,0,0"
+                    Text="Vote:"
+                    VerticalOptions="StartAndExpand"/>
+                
+                <Label
+                    Style="{StaticResource LabelValor}"
+                    Text="{Binding Movies.VoteAverage}"
+                    VerticalOptions="StartAndExpand"/>
+                    
+                <Label
+                    Style="{StaticResource LabelTitulo}"
+                    Margin="5,0,0,0"
+                    Text="Language:"
+                    VerticalOptions="StartAndExpand"/>
+                
+                <Label
+                    Style="{StaticResource LabelValor}"
+                    Text="{Binding Movies.OriginalLanguage}"
+                    VerticalOptions="StartAndExpand"/>
+                    
+                <Label
+                    Style="{StaticResource LabelTitulo}"
+                    Margin="5,0,0,0"
+                    Text="Adult:"
+                    VerticalOptions="StartAndExpand"/>
+                
+                <Label
+                    Style="{StaticResource LabelValor}"
+                    Text="{Binding Movies.Adult}"
                     VerticalOptions="StartAndExpand"/>
                 
             </StackLayout>
             
-        </ScrollView>  
+         </Grid>
+     
+        <Button Text="Fechar"
+                TextColor="#ED3941"
+                BackgroundColor="#e3e9f2"
+                Clicked="OnClosePopupPage" 
+                BorderRadius="3"
+                Margin="10,10"
+                AbsoluteLayout.LayoutBounds="0,1,1,70"
+                AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"/>
         
-       <StackLayout
-            Grid.Row="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Orientation="Vertical"
-            Margin="10,8">
-                
-           <Label
-                FontSize="14"
-                FontAttributes="Bold"
-                Text="Genres:"
-                TextColor="#1565C0"
-                VerticalOptions="StartAndExpand"/>
-            
-            <Label
-                FontSize="14"
-                Text="{Binding Genres}"
-                TextColor="Black"
-                VerticalOptions="StartAndExpand"/>            
-            
-        </StackLayout>
-       
-        <StackLayout
-            Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Orientation="Horizontal">
-        
-            <Label
-                Margin="10,0,0,0"
-                FontSize="14"
-                FontAttributes="Bold"
-                Text="Vote:"
-                TextColor="#1565C0"
-                VerticalOptions="StartAndExpand"/>
-            
-            <Label
-                FontSize="14"
-                Text="{Binding Movies.VoteAverage}"
-                TextColor="Black"
-                VerticalOptions="StartAndExpand"/>
-                
-            <Label
-                FontSize="14"
-                Margin="5,0,0,0"
-                FontAttributes="Bold"
-                Text="Language:"
-                TextColor="#1565C0"
-                VerticalOptions="StartAndExpand"/>
-            
-            <Label
-                FontSize="14"
-                Text="{Binding Movies.OriginalLanguage}"
-                TextColor="Black"
-                VerticalOptions="StartAndExpand"/>
-                
-            <Label
-                FontSize="14"
-                Margin="5,0,0,0"
-                FontAttributes="Bold"
-                Text="Adult:"
-                TextColor="#1565C0"
-                VerticalOptions="StartAndExpand"/>
-            
-            <Label
-                FontSize="14"
-                Text="{Binding Movies.Adult}"
-                TextColor="Black"
-                VerticalOptions="StartAndExpand"/>
-            
-        </StackLayout>
-             
-        <Button 
-            Grid.Row="4"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Text="Fechar"
-            TextColor="Black"
-            HorizontalOptions="Center"
-            VerticalOptions="End"
-            BackgroundColor="#CFD8DC"
-            BorderColor="#CFD8DC"
-            BorderWidth="2"
-            Clicked="OnClosePopupPage"
-            BorderRadius="3"
-            HeightRequest="40"
-            Padding="8"
-            Margin="0,20,0,20"/>
-        
-    </Grid>
-    
+    </AbsoluteLayout>
+   
 </pages:PopupPage>

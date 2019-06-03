@@ -1,9 +1,6 @@
-﻿using System;
-using Prism;
+﻿using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
-//using Cine.ViewModels;
-//using Cine.Views;
 using Xamarin.Forms;
 using DomainApiServiceTMDb.Interfaces;
 using DomainApiServiceTMDb.Services;
@@ -45,7 +42,6 @@ namespace Cine
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterSingleton<IMoviesApiService, MoviesApiService>();
             containerRegistry.RegisterSingleton<IGenresApiService, GenresApiService>();
-            //containerRegistry.RegisterSingleton<MovieDetailsPopupPage, MovieDetailsPopupPageViewModel>();
             containerRegistry.RegisterInstance<IPopupNavigation>(PopupNavigation.Instance);
         }
 

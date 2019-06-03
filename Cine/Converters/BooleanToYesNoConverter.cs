@@ -1,4 +1,4 @@
-﻿namespace Cine.ValueConverters
+﻿namespace Cine.Converters
 {
     using System;
     using System.Globalization;
