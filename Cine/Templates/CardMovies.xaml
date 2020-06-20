@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Name="view"
+             x:Class="Cine.Templates.CardMovies"            
+             Margin="10,5,10,5">
+    
+    <Frame
+        Padding="8"
+        BackgroundColor="White">
+   
+        <Grid 
+            BackgroundColor="Transparent"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="2"
+            VerticalOptions="FillAndExpand">
+                
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+                
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+           
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.RowSpan="3">
+
+                <Image
+                    x:Name="Poster"
+                    Source="{Binding PosterPath}" 
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="3"
+                    WidthRequest="90"
+                    HeightRequest="110"/>
+
+            </StackLayout>
+                
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="18"
+                LineBreakMode="TailTruncation"
+                BackgroundColor="Transparent"
+                FontAttributes="Bold"
+                Text="{Binding Title}"
+                HorizontalOptions="FillAndExpand"
+                TextColor="Black" />
+
+            <StackLayout 
+                Orientation="Vertical"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.RowSpan="2"
+                Spacing="2">
+                    
+                <Label
+                    FontSize="14"
+                    MaxLines="3"
+                    LineBreakMode="TailTruncation"
+                    BackgroundColor="Transparent" 
+                    Text="{Binding Overview}"
+                    TextColor="Black"
+                    VerticalOptions="StartAndExpand"/>
+
+            </StackLayout>
+                
+            <StackLayout Orientation="Horizontal"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2">
+                    
+                <Label
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    Text="Release:"
+                    TextColor="#1565C0"
+                    VerticalOptions="EndAndExpand"/>
+                
+                <Label
+                    FontSize="14"
+                    Text="{Binding ReleaseDate, StringFormat='{}{0:dd/MM/yyyy}' }"
+                    TextColor="Black"
+                    VerticalOptions="EndAndExpand"/>
+
+                <Label
+                    FontSize="14"
+                    Margin="20,0,0,0"
+                    FontAttributes="Bold"
+                    Text="Vote:"
+                    TextColor="#1565C0"
+                    VerticalOptions="EndAndExpand"/>
+                
+                <Label
+                    FontSize="14"
+                    Text="{Binding VoteAverage}"
+                    TextColor="Black"
+                    VerticalOptions="EndAndExpand"/>
+                
+            </StackLayout>
+
+          </Grid>
+    </Frame>
+</ContentView>
